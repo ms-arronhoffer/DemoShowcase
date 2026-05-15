@@ -5,5 +5,3 @@ services:
     ports:
       - "4545:80"
     restart: unless-stopped
-    volumes:
-      - ./public/demos.json:/usr/share/nginx/html/demos.json:ro
