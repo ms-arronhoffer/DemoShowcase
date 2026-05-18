@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -71,9 +71,25 @@ const useStyles = makeStyles({
     userSelect: "none",
   },
   previewClickable: {
-    cursor: "pointer",
+    cursor: "zoom-in",
     display: "block",
     width: "100%",
+  },
+  lightbox: {
+    position: "fixed",
+    inset: 0,
+    backgroundColor: "rgba(0,0,0,0.85)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9999,
+    cursor: "zoom-out",
+  },
+  lightboxImg: {
+    maxWidth: "90vw",
+    maxHeight: "90vh",
+    objectFit: "contain",
+    borderRadius: tokens.borderRadiusMedium,
   },
   previewImg: {
     width: "100%",
@@ -109,19 +125,27 @@ interface DemoCardProps {
 export function DemoCard({ demo }: DemoCardProps) {
   const styles = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
+  const [imgExpanded, setImgExpanded] = useState(false);
   const previewImg = demo.thumbnail_url ?? getVideoThumbnail(demo.video_url ?? null);
+
+  useEffect(() => {
+    if (!imgExpanded) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setImgExpanded(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [imgExpanded]);
 
   return (
     <>
       <Card className={styles.card}>
         <CardPreview>
           <div
-            className={demo.video_url ? styles.previewClickable : undefined}
-            onClick={demo.video_url ? () => setModalOpen(true) : undefined}
-            role={demo.video_url ? "button" : undefined}
-            aria-label={demo.video_url ? `Watch ${demo.title}` : undefined}
-            tabIndex={demo.video_url ? 0 : undefined}
-            onKeyDown={demo.video_url ? (e) => e.key === "Enter" && setModalOpen(true) : undefined}
+            className={previewImg ? styles.previewClickable : undefined}
+            onClick={previewImg ? () => setImgExpanded(true) : undefined}
+            role={previewImg ? "button" : undefined}
+            aria-label={previewImg ? `Expand ${demo.title} thumbnail` : undefined}
+            tabIndex={previewImg ? 0 : undefined}
+            onKeyDown={previewImg ? (e) => e.key === "Enter" && setImgExpanded(true) : undefined}
           >
             {previewImg ? (
               <img
@@ -205,6 +229,12 @@ export function DemoCard({ demo }: DemoCardProps) {
         open={modalOpen}
         onClose={() => setModalOpen(false)}
       />
+
+      {imgExpanded && previewImg && (
+        <div className={styles.lightbox} onClick={() => setImgExpanded(false)}>
+          <img className={styles.lightboxImg} src={previewImg} alt={demo.title} />
+        </div>
+      )}
     </>
   );
 }
