@@ -7,9 +7,9 @@
       "title": "AI Chat Assistant 22",
       "description": "A conversational assistant built on Azure OpenAI GPT-4o with streaming responses and conversation history. Supports multi-turn dialogue with system prompt customization.",
       "tags": ["Azure OpenAI", "Chat", "GPT-4o", "Streaming"],
-      "video_url": "~\\video\\sampleDemo.mp4",
+      "video_url": "\\video\\sampleDemo.mp4",
       "repo_url": "https://github.com/example/ai-chat",
-      "thumbnail_url": "~\\thumbs\\Screenshot_AI_Search_Demo.png",
+      "thumbnail_url": "\\thumbs\\Screenshot_AI_Search_Demo.png",
       "featured": true,
       "created_at": "2026-05-01T00:00:00Z"
     },
