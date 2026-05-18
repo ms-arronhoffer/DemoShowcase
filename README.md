@@ -1,4 +1,4 @@
-# Demo Showcase
+# AI Demo Showcase
 
 A gallery-style web app for displaying demos with video, descriptions, GitHub links, and tag filtering. Demo data is controlled by a JSON config file — no rebuild needed to add or update demos.
 
