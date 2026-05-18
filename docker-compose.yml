@@ -1,6 +1,6 @@
 services:
   demo-showcase:
-    image: demo-showcase:latest
+    #image: demo-showcase:latest
     build: .
     ports:
       - "4545:80"
