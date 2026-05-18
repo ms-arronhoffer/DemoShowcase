@@ -16,46 +16,13 @@
     {
       "id": "demo-002",
       "title": "Document Intelligence Extractor",
-      "description": "Extract structured data from PDFs and scanned images using Azure Document Intelligence. Handles invoices, receipts, and custom document layouts.",
+      "description": "Flask web app secured with Microsoft Entra ID that extracts key-value pairs and text from uploaded documents using Azure AI Document Intelligence. Supports PDFs, images, and Office files with keyless authentication via DefaultAzureCredential.",
       "tags": ["Azure AI", "Document Intelligence", "Vision", "Python"],
       "video_url": "https://www.youtube.com/watch?v=example2",
-      "repo_url": "https://github.com/example/doc-intelligence",
+      "repo_url": "https://github.com/ms-arronhoffer/azure-doc-intelligence-demo",
       "thumbnail_url": null,
       "featured": false,
       "created_at": "2026-04-15T00:00:00Z"
-    },
-    {
-      "id": "demo-003",
-      "title": "RAG Knowledge Base",
-      "description": "Retrieval-Augmented Generation pipeline over enterprise documents. Uses Azure AI Search with vector embeddings for semantic retrieval paired with GPT-4o for grounded answers.",
-      "tags": ["Azure OpenAI", "RAG", "Azure AI Search", "Python"],
-      "video_url": null,
-      "repo_url": "https://github.com/example/rag-kb",
-      "thumbnail_url": null,
-      "featured": true,
-      "created_at": "2026-05-10T00:00:00Z"
-    },
-    {
-      "id": "demo-004",
-      "title": "Real-Time Speech Transcription",
-      "description": "Live speech-to-text transcription with speaker diarization using Azure Cognitive Services Speech SDK. Supports 90+ languages and custom vocabulary.",
-      "tags": ["Azure AI", "Speech", "Real-Time", "TypeScript"],
-      "video_url": "https://vimeo.com/123456789",
-      "repo_url": "https://github.com/example/speech-transcription",
-      "thumbnail_url": null,
-      "featured": false,
-      "created_at": "2026-03-20T00:00:00Z"
-    },
-    {
-      "id": "demo-005",
-      "title": "Image Analysis API",
-      "description": "REST API wrapping Azure Computer Vision to classify images, detect objects, extract text via OCR, and generate alt-text descriptions automatically.",
-      "tags": ["Vision", "Azure AI", "Python", "FastAPI"],
-      "video_url": "https://www.youtube.com/watch?v=example5",
-      "repo_url": null,
-      "thumbnail_url": null,
-      "featured": false,
-      "created_at": "2026-05-12T00:00:00Z"
     }
   ]
 }
