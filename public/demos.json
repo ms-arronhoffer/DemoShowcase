@@ -1,6 +1,6 @@
 {
-  "title": "Demo Showcase",
-  "subtitle": "Explore our collection of demos. Click Watch to see them in action or Repo to view the source.",
+  "title": "AI Demo Showcase",
+  "subtitle": "Explore the collection of AI demos. Click Watch to see them in action or Repo to view the source.",
   "demos": [
     {
       "id": "demo-001",
