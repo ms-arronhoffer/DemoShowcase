@@ -75,6 +75,7 @@ const useStyles = makeStyles({
     display: "block",
     width: "100%",
   },
+  previewImg: {
     width: "100%",
     height: "160px",
     objectFit: "cover",
