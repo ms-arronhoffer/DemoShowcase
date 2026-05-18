@@ -70,7 +70,11 @@ const useStyles = makeStyles({
     justifyContent: "center",
     userSelect: "none",
   },
-  previewImg: {
+  previewClickable: {
+    cursor: "pointer",
+    display: "block",
+    width: "100%",
+  },
     width: "100%",
     height: "160px",
     objectFit: "cover",
@@ -110,18 +114,27 @@ export function DemoCard({ demo }: DemoCardProps) {
     <>
       <Card className={styles.card}>
         <CardPreview>
-          {previewImg ? (
-            <img
-              className={styles.previewImg}
-              src={previewImg}
-              alt={demo.title}
-            />
-          ) : (
-            <div
-              className={styles.preview}
-              style={{ background: getGradient(demo.id) }}
-            />
-          )}
+          <div
+            className={demo.video_url ? styles.previewClickable : undefined}
+            onClick={demo.video_url ? () => setModalOpen(true) : undefined}
+            role={demo.video_url ? "button" : undefined}
+            aria-label={demo.video_url ? `Watch ${demo.title}` : undefined}
+            tabIndex={demo.video_url ? 0 : undefined}
+            onKeyDown={demo.video_url ? (e) => e.key === "Enter" && setModalOpen(true) : undefined}
+          >
+            {previewImg ? (
+              <img
+                className={styles.previewImg}
+                src={previewImg}
+                alt={demo.title}
+              />
+            ) : (
+              <div
+                className={styles.preview}
+                style={{ background: getGradient(demo.id) }}
+              />
+            )}
+          </div>
         </CardPreview>
 
         <CardHeader

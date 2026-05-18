@@ -75,12 +75,9 @@ function toEmbedUrl(videoUrl: string): string | null {
 }
 
 function isDirectVideo(videoUrl: string): boolean {
-  try {
-    const ext = new URL(videoUrl).pathname.split(".").pop()?.toLowerCase() ?? "";
-    return DIRECT_VIDEO_EXTS.includes(ext);
-  } catch {
-    return false;
-  }
+  const pathname = videoUrl.startsWith("http") ? (() => { try { return new URL(videoUrl).pathname; } catch { return videoUrl; } })() : videoUrl;
+  const ext = pathname.split(".").pop()?.toLowerCase() ?? "";
+  return DIRECT_VIDEO_EXTS.includes(ext);
 }
 
 interface VideoModalProps {
