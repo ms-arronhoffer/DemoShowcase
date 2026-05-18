@@ -110,6 +110,16 @@ const useStyles = makeStyles({
     WebkitBoxOrient: "vertical",
     overflow: "hidden",
   },
+  descriptionExpanded: {
+    fontSize: tokens.fontSizeBase200,
+    color: tokens.colorNeutralForeground2,
+  },
+  showMoreBtn: {
+    fontSize: tokens.fontSizeBase200,
+    minWidth: 0,
+    padding: 0,
+    height: "auto",
+  },
   footer: {
     marginTop: "auto",
     display: "flex",
@@ -126,6 +136,7 @@ export function DemoCard({ demo }: DemoCardProps) {
   const styles = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
   const [imgExpanded, setImgExpanded] = useState(false);
+  const [descExpanded, setDescExpanded] = useState(false);
   const previewImg = demo.thumbnail_url ?? getVideoThumbnail(demo.video_url ?? null);
 
   useEffect(() => {
@@ -194,7 +205,18 @@ export function DemoCard({ demo }: DemoCardProps) {
             </div>
           }
           description={
-            <Text className={styles.description}>{demo.description}</Text>
+            <div>
+              <Text className={descExpanded ? styles.descriptionExpanded : styles.description}>
+                {demo.description}
+              </Text>
+              <Button
+                appearance="transparent"
+                className={styles.showMoreBtn}
+                onClick={() => setDescExpanded(!descExpanded)}
+              >
+                {descExpanded ? "Show less" : "Show more"}
+              </Button>
+            </div>
           }
         />
 
