@@ -52,19 +52,18 @@ const useStyles = makeStyles({
   },
 });
 
+const DIRECT_VIDEO_EXTS = ["mp4", "webm", "ogg", "mov"];
+
 function toEmbedUrl(videoUrl: string): string | null {
   try {
     const url = new URL(videoUrl);
-    // YouTube: youtube.com/watch?v=ID
     if (url.hostname.includes("youtube.com") && url.searchParams.get("v")) {
       return `https://www.youtube.com/embed/${url.searchParams.get("v")}?autoplay=1`;
     }
-    // YouTube short: youtu.be/ID
     if (url.hostname === "youtu.be") {
       const id = url.pathname.slice(1);
       return `https://www.youtube.com/embed/${id}?autoplay=1`;
     }
-    // Vimeo: vimeo.com/ID
     if (url.hostname.includes("vimeo.com")) {
       const id = url.pathname.split("/").filter(Boolean).pop();
       if (id) return `https://player.vimeo.com/video/${id}?autoplay=1`;
@@ -73,6 +72,15 @@ function toEmbedUrl(videoUrl: string): string | null {
     // malformed URL — fall through to null
   }
   return null;
+}
+
+function isDirectVideo(videoUrl: string): boolean {
+  try {
+    const ext = new URL(videoUrl).pathname.split(".").pop()?.toLowerCase() ?? "";
+    return DIRECT_VIDEO_EXTS.includes(ext);
+  } catch {
+    return false;
+  }
 }
 
 interface VideoModalProps {
@@ -109,6 +117,15 @@ export function VideoModal({ videoUrl, title, open, onClose }: VideoModalProps) 
                 title={title}
                 allow="autoplay; encrypted-media; fullscreen"
                 allowFullScreen
+              />
+            </div>
+          ) : videoUrl && isDirectVideo(videoUrl) ? (
+            <div className={styles.iframeWrapper}>
+              <video
+                className={styles.iframe}
+                src={videoUrl}
+                controls
+                autoPlay
               />
             </div>
           ) : (

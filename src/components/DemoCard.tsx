@@ -20,17 +20,21 @@ import {
 import type { Demo } from "../types";
 import { VideoModal } from "./VideoModal";
 
-const TAG_EMOJI: Record<string, string> = {
-  "Azure OpenAI": "🤖",
-  "Vision": "👁️",
-  "RAG": "📚",
-  "Python": "🐍",
-  "Security": "🔒",
-  "Chat": "💬",
-  "Speech": "🎙️",
-  "FastAPI": "⚡",
-  "TypeScript": "🔷",
-};
+function getVideoThumbnail(videoUrl: string | null): string | null {
+  if (!videoUrl) return null;
+  try {
+    const url = new URL(videoUrl);
+    if (url.hostname.includes("youtube.com") && url.searchParams.get("v")) {
+      return `https://img.youtube.com/vi/${url.searchParams.get("v")}/hqdefault.jpg`;
+    }
+    if (url.hostname === "youtu.be") {
+      return `https://img.youtube.com/vi/${url.pathname.slice(1)}/hqdefault.jpg`;
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
 
 const GRADIENT_COLORS = [
   "linear-gradient(135deg, #0078d4 0%, #106ebe 100%)",
@@ -64,7 +68,6 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "56px",
     userSelect: "none",
   },
   previewImg: {
@@ -101,25 +104,23 @@ interface DemoCardProps {
 export function DemoCard({ demo }: DemoCardProps) {
   const styles = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
-  const emoji = TAG_EMOJI[demo.tags[0]] ?? "✨";
+  const previewImg = demo.thumbnail_url ?? getVideoThumbnail(demo.video_url ?? null);
 
   return (
     <>
       <Card className={styles.card}>
         <CardPreview>
-          {demo.thumbnail_url ? (
+          {previewImg ? (
             <img
               className={styles.previewImg}
-              src={demo.thumbnail_url}
+              src={previewImg}
               alt={demo.title}
             />
           ) : (
             <div
               className={styles.preview}
               style={{ background: getGradient(demo.id) }}
-            >
-              {emoji}
-            </div>
+            />
           )}
         </CardPreview>
 
